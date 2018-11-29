@@ -1,0 +1,60 @@
+<html>
+	
+<head>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+	</head>
+	<body>
+		<div class = 'pane'>
+		<h1>{{ startup.name }}</h1>
+		
+		{% with messages = get_flashed_messages() %}
+      {% if messages %}
+          
+        <ul>
+        {% for message in messages %}
+            <li> <strong> {{ message }} </strong> </li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+
+    {% if founders !=[] %}
+
+		<a href = "{{url_for('newFounder', startup_id = startup.id )}}">Add New founder</a>
+	</br></br>
+
+
+		{% for i in founders %}
+
+		<p>{{i.name}}</p>
+	
+
+		<p>{{i.bio}}</p>
+	
+	
+		<a href='{{url_for('editFounder', startup_id = startup.id, founder_id=i.id ) }}' >Edit</a>
+	</br>
+	<a href='{{url_for('deleteFounder', startup_id = startup.id, founder_id=i.id ) }}' >Delete</a>
+</br>
+</br>
+
+		{% endfor %}
+
+		
+
+		</br></br>
+
+
+	<a href = '{{url_for('showStartups', startups=startups)}}' ><button type="button ">Show all 
+	startups</button></a>
+		
+		
+
+		{% else %}
+		<p> You currently have no founders. <p>
+		<a href = "{{url_for('newFounder', startup_id = startup.id )}}">Add New founder</a>
+			{% endif %}
+</div>
+	</body>
+
+</html>
